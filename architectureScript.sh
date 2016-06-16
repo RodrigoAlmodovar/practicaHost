@@ -2,7 +2,13 @@
 
 
 function pageContent {
-	echo el contador es $COUNTER
+	echo "	
+		<div>
+			Esta es la pagina $COUNTER
+		</div>
+		<input type='button' value=' Anterior ' onclick='goHist(-1)' />
+		<input type='button' value=' Siguiente ' onclick='goHist(1)' />
+	"
 }
 function createSites {
 	while [  $COUNTER -lt 41 ]; do
