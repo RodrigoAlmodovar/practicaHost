@@ -1,6 +1,19 @@
 #!/bin/bash
 
 
+function pageContent {
+	echo el contador es $COUNTER
+}
+function createSites {
+	while [  $COUNTER -lt 41 ]; do
+   		pageContent > /var/www/html/"$COUNTER".html    	
+    	let COUNTER=COUNTER+1 
+	done
+}
+
+#Variables declaration
+COUNTER=0
+
 
 #Install Apache
 #sudo apt-get install apache2
@@ -10,11 +23,8 @@
 
 
 #Crear sites
-COUNTER=0
-	while [  $COUNTER -lt 41 ]; do
-    	echo El contador es $COUNTER > /var/www/html/"$COUNTER".html    	
-        let COUNTER=COUNTER+1 
-    done
+createSites
+
 
 
 # <VirtualHost *:80>
