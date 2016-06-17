@@ -79,6 +79,7 @@ function navigateSites {
 # echo "Installing Apache2 and configuring it..."
 # apt-get install apache2
 # chown -R $USER:$USER /var/www
+# sed "5i\127.0.0.1\tpracticahost.localhost" /etc/hosts
 # #cat /etc/apache2/envvars | tr 'www-data' '$USER'
 # echo "DONE!"
 
