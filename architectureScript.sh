@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Variables declaration
+COUNTER=1
+
+
 function pageContent {
 
 	case $COUNTER in
@@ -32,45 +36,58 @@ function pageContent {
 }
 
 function createSites {
+	echo "Creating the 40 sites..."
 	while [  $COUNTER -lt 41 ]; do
 		mkdir /var/www/html/practicaHost 2> /dev/null
-   		pageContent > /var/www/html/practicaHost/"$COUNTER".html    	
-    	let COUNTER=COUNTER+1 
+		pageContent > /var/www/html/practicaHost/"$COUNTER".html    	
+	   	let COUNTER=COUNTER+1 
 	done
+	echo "DONE!"
 }
 
 function createVirtualHost {
 	echo "
 		<VirtualHost *:80>
-			DocumentRoot var/www/html/practicahost
- 			ServerName practicahost.localHost 		
+			DocumentRoot /var/www/html/practicaHost
+ 			ServerName practicahost.localhost																			 		
 	 	</VirtualHost>
 	" > /etc/apache2/sites-available/practicaHost.conf
-	a2ensite apache2 practicaHost.conf
+	a2ensite practicaHost.conf
 	service apache2 reload
+	echo "VirtualHost created and ready to be used!"
 }
 
 function navigateSites {
+	#Reinitiate the apache server log purposes
+	service apache2 reload > /dev/null
 	COUNTER=0
-	while [ $COUNTER -lt 42 ]; do
-		curl -s localhost/practicaHost/"$COUNTER".html #Cambiar a practicahost.localhost... para que use el virtual host. No funciona
-		let COUNTER=COUNTER+1
-	done	
 
+	echo "Navigating the 41 sites..."
+	while [ $COUNTER -lt 42 ]; do
+		curl -s practicahost.localhost/practicaHost/"$COUNTER".html > /dev/null #Cambiar a practicahost.localhost... para que use el virtual host. No funciona
+		let COUNTER=COUNTER+1
+	done
+
+	echo "Logging the error for the 41th site..."
+	cat /var/log/apache2/access.log | tail -f | grep "404" > ./404.log
+	echo "DONE! Please check the 404.log file ;)"
 }
-#Variables declaration
-COUNTER=1
+
 
 
 # #Install apache2
-# echo Installing Apache2 and configuring it...
-# sudo apt-get install apache2
-# sudo chown -R $USER:$USER /var/www
-# cat /etc/apache2/envvars | tr 'www-data' '$USER'
+# echo "Installing Apache2 and configuring it..."
+# apt-get install apache2
+# chown -R $USER:$USER /var/www
+# #cat /etc/apache2/envvars | tr 'www-data' '$USER'
+# echo "DONE!"
 
 #Crear VirtualHost
 #createVirtualHost
 
 
 #Crear sites
-createSites
+#createSites
+
+#Navigate sites
+#navigateSites

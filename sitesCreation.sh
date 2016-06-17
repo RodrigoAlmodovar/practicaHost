@@ -35,9 +35,10 @@ function pageContent {
   esac
 }
 
-
+echo "Creating the 40 sites..."
 while [  $COUNTER -lt 41 ]; do
 	mkdir /var/www/html/practicaHost 2> /dev/null
 	pageContent > /var/www/html/practicaHost/"$COUNTER".html    	
    	let COUNTER=COUNTER+1 
 done
+echo "DONE!"
