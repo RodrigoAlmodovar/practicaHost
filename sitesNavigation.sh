@@ -1,6 +1,6 @@
 #!/bin/bash
 #Reinitiate the apache server log purposes
-service apache2 reload > /dev/null
+service apache2 start > /dev/null 2> /dev/null
 COUNTER=0
 
 echo "Navigating the 41 sites..."
