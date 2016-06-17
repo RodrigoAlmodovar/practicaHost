@@ -42,22 +42,22 @@ function createSites {
 function createVirtualHost {
 	echo "
 		<VirtualHost *:80>
-			DocumentRoot 'var/www/html/practicaHost'
- 			ServerName app.localhost
- 			ProxyRequests Off
-
- 			<Proxy *>
- 				Order deny, allow
- 				Allow from all
- 			</Proxy>
-	 		<Location />
-	 			ProxyPass http://localhost:58080/
-	 			ProxyPassReverse http://localhost:58080/
-	 		</Location>
+			DocumentRoot var/www/html/practicahost
+ 			ServerName practicahost.localHost 		
 	 	</VirtualHost>
 	" > /etc/apache2/sites-available/practicaHost.conf
+	a2ensite apache2 practicaHost.conf
+	service apache2 reload
 }
 
+function navigateSites {
+	COUNTER=0
+	while [ $COUNTER -lt 42 ]; do
+		curl -s localhost/practicaHost/"$COUNTER".html #Cambiar a practicahost.localhost... para que use el virtual host. No funciona
+		let COUNTER=COUNTER+1
+	done	
+
+}
 #Variables declaration
 COUNTER=1
 
@@ -69,7 +69,8 @@ COUNTER=1
 # cat /etc/apache2/envvars | tr 'www-data' '$USER'
 
 #Crear VirtualHost
-createVirtualHost
+#createVirtualHost
+
 
 #Crear sites
 createSites
