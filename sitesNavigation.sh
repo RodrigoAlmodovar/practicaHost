@@ -12,3 +12,4 @@ done
 echo "Logging the error for the 41th site..."
 cat /var/log/apache2/access.log | tail -f | grep "404" > ./404.log
 echo "DONE! Please check the 404.log file ;)"
+service apache2 stop > /dev/null
