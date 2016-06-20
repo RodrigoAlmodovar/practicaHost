@@ -5,7 +5,7 @@ COUNTER=0
 
 echo "Navigating the 41 sites..."
 while [ $COUNTER -lt 42 ]; do
-	curl -s practicahost.localhost/practicaHost/"$COUNTER".html > /dev/null #Cambiar a practicahost.localhost... para que use el virtual host. No funciona
+	curl -s practicahost.localhost/practicaHost/"$COUNTER".html > /dev/null
 	let COUNTER=COUNTER+1
 done
 
