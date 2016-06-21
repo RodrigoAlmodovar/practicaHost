@@ -2,7 +2,8 @@
 echo "
 		<VirtualHost *:80>
 			DocumentRoot /var/www/html/practicaHost
- 			ServerName practicahost.localhost																			 		
+ 			ServerName practicahost.localhost
+ 			DirectoryIndex 1.html
 	 	</VirtualHost>
 	" > /etc/apache2/sites-available/practicaHost.conf
 	a2ensite practicaHost.conf
